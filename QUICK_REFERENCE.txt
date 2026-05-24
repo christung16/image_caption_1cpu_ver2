@@ -1,0 +1,111 @@
+╔═══════════════════════════════════════════════════════════════╗
+║         IMAGE CAPTIONING WEB APP - QUICK REFERENCE            ║
+╚═══════════════════════════════════════════════════════════════╝
+
+📥 FIRST TIME SETUP
+═══════════════════════════════════════════════════════════════
+
+1. Install Git LFS:
+   macOS:         brew install git-lfs
+   Ubuntu:        sudo apt-get install git-lfs
+   Then:          git lfs install
+
+2. Download Model:
+   cd models
+   git clone https://huggingface.co/Salesforce/blip-image-captioning-base
+   cd ..
+
+3. Setup Python:
+   python3 -m venv .venv
+   source .venv/bin/activate
+   pip install -r requirements.txt
+
+4. Verify Model:
+   ls -lh models/blip-image-captioning-base/pytorch_model.bin
+   → Should show ~944 MB (not KB!)
+
+🚀 RUNNING THE APP
+═══════════════════════════════════════════════════════════════
+
+Start Server:
+   ./start.sh
+
+Access:
+   http://localhost:5000
+
+Stop Server:
+   Press CTRL+C
+
+📁 PROJECT STRUCTURE
+═══════════════════════════════════════════════════════════════
+
+models/
+  └── blip-image-captioning-base/  ← Download with git clone
+images/
+  ├── sample_cat.jpg               ← Test images included
+  ├── sample_geometric.jpg
+  └── sample_landscape.jpg
+templates/
+  └── index.html                   ← Web interface
+static/
+  └── style.css                    ← Styling
+app.py                             ← Main application
+.venv/                             ← Virtual env (auto-created)
+
+🎯 THREE WAYS TO USE
+═══════════════════════════════════════════════════════════════
+
+Tab 1: Image URL
+   → Paste any image URL from web
+
+Tab 2: Upload File  
+   → Choose image from computer
+
+Tab 3: Select from Images Folder
+   → Pick from sample images
+
+⚡ PERFORMANCE
+═══════════════════════════════════════════════════════════════
+
+Startup:        5-10 seconds
+First caption:  10-15 seconds
+Next captions:  5-10 seconds
+Memory usage:   ~800MB-1GB
+
+❌ TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════
+
+Model not found:
+   → Download it: cd models && git clone <url>
+
+Git LFS error:
+   → Install: brew install git-lfs && git lfs install
+
+Module not found:
+   → Activate venv: source .venv/bin/activate
+   → Install deps: pip install -r requirements.txt
+
+Small model file (<100MB):
+   → Git LFS not working, reinstall and re-clone
+
+📚 DOCUMENTATION
+═══════════════════════════════════════════════════════════════
+
+README.md          → Full documentation
+SETUP.md           → Quick 5-step setup
+models/README.md   → Model download guide
+START_HERE.md      → Running instructions
+
+🎓 FOR STUDENTS
+═══════════════════════════════════════════════════════════════
+
+Learn about:
+  • Flask web development
+  • AI/ML model integration
+  • Image processing with PIL
+  • REST API design
+  • Git LFS for large files
+
+All code is well-commented for learning!
+
+═══════════════════════════════════════════════════════════════

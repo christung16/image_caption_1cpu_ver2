@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Captioning - Student Learning Project</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header>
+            <h1>🖼️ AI Image Captioning</h1>
+            <p class="subtitle">Upload an image or provide a URL, and AI will describe it!</p>
+            <p class="learn-note">📚 Student Learning Project - Built with Python & BLIP Model</p>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Input Section -->
+            <div class="input-section">
+                <h2>Choose Your Image</h2>
+                
+                <!-- Tab Selection -->
+                <div class="tabs">
+                    <button class="tab-button active" onclick="switchTab('url')">Image URL</button>
+                    <button class="tab-button" onclick="switchTab('upload')">Upload File</button>
+                    <button class="tab-button" onclick="switchTab('directory')">Select from Images Folder</button>
+                </div>
+
+                <!-- URL Input Tab -->
+                <div id="url-tab" class="tab-content active">
+                    <form id="url-form">
+                        <label for="image-url">Enter Image URL:</label>
+                        <input 
+                            type="text" 
+                            id="image-url" 
+                            name="image_url" 
+                            placeholder="https://example.com/image.jpg"
+                            class="url-input">
+                        <button type="submit" class="btn btn-primary">Generate Caption</button>
+                    </form>
+                    <p class="hint">💡 Tip: Right-click any image online and select "Copy Image Address"</p>
+                </div>
+
+                <!-- File Upload Tab -->
+                <div id="upload-tab" class="tab-content">
+                    <form id="upload-form">
+                        <label for="image-file">Choose an Image File:</label>
+                        <input 
+                            type="file" 
+                            id="image-file" 
+                            name="image_file" 
+                            accept="image/png, image/jpeg, image/jpg, image/gif, image/bmp, image/webp"
+                            class="file-input">
+                        <button type="submit" class="btn btn-primary">Generate Caption</button>
+                    </form>
+                    <p class="hint">📁 Supported formats: PNG, JPG, JPEG, GIF, BMP, WEBP (Max 16MB)</p>
+                </div>
+
+                <!-- Directory Images Tab -->
+                <div id="directory-tab" class="tab-content">
+                    <form id="directory-form">
+                        <label for="directory-select">Select an Image from the 'images' Folder:</label>
+                        <select id="directory-select" name="directory_image" class="directory-select">
+                            <option value="">-- Loading images... --</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary">Generate Caption</button>
+                    </form>
+                    <div id="directory-preview" class="directory-preview hidden">
+                        <p class="hint">Preview:</p>
+                        <img id="directory-preview-img" src="" alt="Preview">
+                    </div>
+                    <p class="hint">📂 Place your images in the 'images' folder in the project directory</p>
+                </div>
+            </div>
+
+            <!-- Loading Indicator -->
+            <div id="loading" class="loading hidden">
+                <div class="spinner"></div>
+                <p>AI is analyzing your image... Please wait (may take 5-10 seconds)</p>
+            </div>
+
+            <!-- Error Display -->
+            <div id="error" class="error hidden">
+                <p id="error-message"></p>
+            </div>
+
+            <!-- Results Section -->
+            <div id="results" class="results hidden">
+                <h2>Results</h2>
+                
+                <!-- Image Preview -->
+                <div class="image-preview">
+                    <img id="preview-image" src="" alt="Preview">
+                </div>
+
+                <!-- Generated Caption -->
+                <div class="caption-box">
+                    <h3>AI Generated Caption:</h3>
+                    <p id="caption-text"></p>
+                </div>
+
+                <!-- Try Another Button -->
+                <button onclick="resetForm()" class="btn btn-secondary">Try Another Image</button>
+            </div>
+        </main>
+
+        <!-- Educational Info Section -->
+        <aside class="info-section">
+            <h3>🧠 How Does This Work?</h3>
+            <div class="info-content">
+                <div class="step">
+                    <strong>Step 1:</strong> You provide an image (URL or file upload)
+                </div>
+                <div class="step">
+                    <strong>Step 2:</strong> The image is sent to our Python Flask server
+                </div>
+                <div class="step">
+                    <strong>Step 3:</strong> The BLIP AI model analyzes the image
+                </div>
+                <div class="step">
+                    <strong>Step 4:</strong> The model generates a descriptive caption
+                </div>
+                <div class="step">
+                    <strong>Step 5:</strong> The caption is displayed on your screen
+                </div>
+            </div>
+            
+            <h3>💻 Technologies Used</h3>
+            <ul class="tech-list">
+                <li><strong>Backend:</strong> Python 3.8+ with Flask</li>
+                <li><strong>AI Model:</strong> BLIP-base (Salesforce)</li>
+                <li><strong>Libraries:</strong> PyTorch, Transformers, PIL</li>
+                <li><strong>Frontend:</strong> HTML5, CSS3, JavaScript</li>
+            </ul>
+        </aside>
+
+        <!-- Footer -->
+        <footer>
+            <p>Built for educational purposes • Learn Python & AI • 2024</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Load directory images when page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            loadDirectoryImages();
+        });
+
+        // Load images from the directory
+        async function loadDirectoryImages() {
+            try {
+                const response = await fetch('/list-images');
+                const data = await response.json();
+                
+                const select = document.getElementById('directory-select');
+                select.innerHTML = '<option value="">-- Select an image --</option>';
+                
+                if (data.success && data.images.length > 0) {
+                    data.images.forEach(filename => {
+                        const option = document.createElement('option');
+                        option.value = filename;
+                        option.textContent = filename;
+                        select.appendChild(option);
+                    });
+                } else if (data.images.length === 0) {
+                    select.innerHTML = '<option value="">-- No images found in images/ folder --</option>';
+                }
+            } catch (error) {
+                console.error('Error loading directory images:', error);
+                const select = document.getElementById('directory-select');
+                select.innerHTML = '<option value="">-- Error loading images --</option>';
+            }
+        }
+
+        // Handle directory image selection change
+        document.getElementById('directory-select').addEventListener('change', (e) => {
+            const filename = e.target.value;
+            const preview = document.getElementById('directory-preview');
+            const previewImg = document.getElementById('directory-preview-img');
+            
+            if (filename) {
+                previewImg.src = '/images/' + filename;
+                preview.classList.remove('hidden');
+            } else {
+                preview.classList.add('hidden');
+            }
+        });
+
+        // Tab switching functionality
+        function switchTab(tabName) {
+            // Get all tabs and buttons
+            const urlTab = document.getElementById('url-tab');
+            const uploadTab = document.getElementById('upload-tab');
+            const directoryTab = document.getElementById('directory-tab');
+            const buttons = document.querySelectorAll('.tab-button');
+            
+            // Hide all tabs
+            urlTab.classList.remove('active');
+            uploadTab.classList.remove('active');
+            directoryTab.classList.remove('active');
+            
+            // Remove active class from all buttons
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected tab
+            if (tabName === 'url') {
+                urlTab.classList.add('active');
+                buttons[0].classList.add('active');
+            } else if (tabName === 'upload') {
+                uploadTab.classList.add('active');
+                buttons[1].classList.add('active');
+            } else if (tabName === 'directory') {
+                directoryTab.classList.add('active');
+                buttons[2].classList.add('active');
+                // Reload directory images when switching to this tab
+                loadDirectoryImages();
+            }
+            
+            // Reset any previous results
+            hideElement('error');
+            hideElement('results');
+        }
+
+        // Helper functions to show/hide elements
+        function showElement(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function hideElement(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        // Reset the form to initial state
+        function resetForm() {
+            document.getElementById('url-form').reset();
+            document.getElementById('upload-form').reset();
+            document.getElementById('directory-form').reset();
+            hideElement('results');
+            hideElement('error');
+            hideElement('directory-preview');
+        }
+
+        // Handle URL form submission
+        document.getElementById('url-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const url = document.getElementById('image-url').value.trim();
+            
+            if (!url) {
+                showError('Please enter an image URL');
+                return;
+            }
+
+            // Create form data
+            const formData = new FormData();
+            formData.append('image_url', url);
+            
+            // Submit to server
+            await submitImage(formData, url);
+        });
+
+        // Handle file upload form submission
+        document.getElementById('upload-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const fileInput = document.getElementById('image-file');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                showError('Please select an image file');
+                return;
+            }
+
+            // Create form data
+            const formData = new FormData();
+            formData.append('image_file', file);
+            
+            // Create a preview URL for the uploaded file
+            const previewUrl = URL.createObjectURL(file);
+            
+            // Submit to server
+            await submitImage(formData, previewUrl);
+        });
+
+        // Handle directory image form submission
+        document.getElementById('directory-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const select = document.getElementById('directory-select');
+            const filename = select.value;
+            
+            if (!filename) {
+                showError('Please select an image from the list');
+                return;
+            }
+
+            // Create form data
+            const formData = new FormData();
+            formData.append('directory_image', filename);
+            
+            // Use the image URL
+            const imageUrl = '/images/' + filename;
+            
+            // Submit to server
+            await submitImage(formData, imageUrl);
+        });
+
+        // Submit image to server for captioning
+        async function submitImage(formData, imageUrl) {
+            // Hide previous results and errors
+            hideElement('results');
+            hideElement('error');
+            
+            // Show loading indicator
+            showElement('loading');
+            
+            try {
+                // Send request to server
+                const response = await fetch('/caption', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                // Parse JSON response
+                const data = await response.json();
+                
+                // Hide loading indicator
+                hideElement('loading');
+                
+                if (data.success) {
+                    // Show the results
+                    displayResults(imageUrl, data.caption);
+                } else {
+                    // Show error message
+                    showError(data.error || 'An unknown error occurred');
+                }
+            } catch (error) {
+                hideElement('loading');
+                showError('Failed to connect to server: ' + error.message);
+            }
+        }
+
+        // Display the results (image and caption)
+        function displayResults(imageUrl, caption) {
+            // Set the preview image
+            document.getElementById('preview-image').src = imageUrl;
+            
+            // Set the caption text
+            document.getElementById('caption-text').textContent = caption;
+            
+            // Show results section
+            showElement('results');
+        }
+
+        // Show error message
+        function showError(message) {
+            document.getElementById('error-message').textContent = '❌ ' + message;
+            showElement('error');
+        }
+    </script>
+</body>
+</html>

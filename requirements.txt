@@ -1,0 +1,21 @@
+# Image Captioning Web Application - Python Dependencies
+# ========================================================
+# Install these packages using: pip install -r requirements.txt
+
+# Web Framework
+flask>=2.3.0
+werkzeug>=2.3.0
+
+# AI/ML Libraries
+torch>=2.0.0
+torchvision>=0.15.0
+transformers>=4.33.0
+
+# Image Processing
+Pillow>=10.0.0
+
+# HTTP Requests (for downloading images from URLs)
+requests>=2.31.0
+
+# Additional Utilities
+numpy>=1.24.0

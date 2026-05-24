@@ -1,0 +1,420 @@
+/* 
+   Image Captioning Web Application - Stylesheet
+   Student Learning Project
+   Clean, modern, and responsive design
+*/
+
+/* === Reset and Base Styles === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+}
+
+/* === Container === */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+/* === Header === */
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 40px 30px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    opacity: 0.9;
+}
+
+.learn-note {
+    font-size: 0.9em;
+    opacity: 0.8;
+    background: rgba(255, 255, 255, 0.2);
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 20px;
+    margin-top: 10px;
+}
+
+/* === Main Content === */
+main {
+    padding: 40px 30px;
+}
+
+/* === Input Section === */
+.input-section {
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+.input-section h2 {
+    color: #667eea;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+/* === Tabs === */
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 12px 24px;
+    border: 2px solid #667eea;
+    background: white;
+    color: #667eea;
+    border-radius: 10px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab-button:hover {
+    background: #f0f0f0;
+}
+
+.tab-button.active {
+    background: #667eea;
+    color: white;
+}
+
+/* === Tab Content === */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* === Forms === */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-weight: 600;
+    color: #555;
+    font-size: 1em;
+}
+
+.url-input,
+.file-input,
+.directory-select {
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+
+.url-input:focus,
+.directory-select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.file-input {
+    cursor: pointer;
+}
+
+.directory-select {
+    background: white;
+    cursor: pointer;
+}
+
+/* === Directory Preview === */
+.directory-preview {
+    margin-top: 20px;
+    padding: 15px;
+    background: white;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.directory-preview img {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.hint {
+    color: #666;
+    font-size: 0.9em;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+/* === Buttons === */
+.btn {
+    padding: 14px 28px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+    margin-top: 20px;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+}
+
+/* === Loading Indicator === */
+.loading {
+    text-align: center;
+    padding: 40px;
+    background: #e7f3ff;
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #667eea;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading p {
+    color: #667eea;
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+/* === Error Display === */
+.error {
+    background: #ffe6e6;
+    border: 2px solid #ff4444;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.error p {
+    color: #cc0000;
+    font-weight: 600;
+}
+
+/* === Results Section === */
+.results {
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+.results h2 {
+    color: #667eea;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+}
+
+.image-preview {
+    text-align: center;
+    margin-bottom: 30px;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 500px;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto;
+}
+
+.caption-box {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    border-left: 5px solid #667eea;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.caption-box h3 {
+    color: #667eea;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+}
+
+.caption-box p {
+    font-size: 1.2em;
+    color: #333;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+/* === Info Section === */
+.info-section {
+    background: #f0f4ff;
+    padding: 30px;
+    margin: 30px;
+    border-radius: 15px;
+}
+
+.info-section h3 {
+    color: #667eea;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+.info-content {
+    margin-bottom: 30px;
+}
+
+.step {
+    background: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border-left: 4px solid #667eea;
+}
+
+.step strong {
+    color: #667eea;
+}
+
+.tech-list {
+    list-style: none;
+    padding: 0;
+}
+
+.tech-list li {
+    background: white;
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    border-left: 4px solid #764ba2;
+}
+
+.tech-list strong {
+    color: #764ba2;
+}
+
+/* === Footer === */
+footer {
+    background: #2d3436;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+footer p {
+    opacity: 0.8;
+}
+
+/* === Utility Classes === */
+.hidden {
+    display: none !important;
+}
+
+/* === Responsive Design === */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    header h1 {
+        font-size: 2em;
+    }
+    
+    .subtitle {
+        font-size: 1em;
+    }
+    
+    main,
+    .input-section,
+    .info-section {
+        padding: 20px;
+    }
+    
+    .tabs {
+        flex-direction: column;
+    }
+    
+    .tab-button {
+        width: 100%;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.5em;
+    }
+    
+    .input-section h2,
+    .results h2,
+    .info-section h3 {
+        font-size: 1.3em;
+    }
+    
+    .caption-box p {
+        font-size: 1em;
+    }
+}
