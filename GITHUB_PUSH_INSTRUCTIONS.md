@@ -99,7 +99,7 @@ cd image_caption_1cpu_ver2
 
 # Download the model (REQUIRED)
 cd models
-git clone https://huggingface.co/Salesforce/blip-image-captioning-base
+git clone --progress https://huggingface.co/Salesforce/blip-image-captioning-base
 cd ..
 
 # Setup Python environment

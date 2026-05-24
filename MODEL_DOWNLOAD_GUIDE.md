@@ -35,9 +35,9 @@ models/blip-image-captioning-base/
 # Step 1: Create models directory
 mkdir -p models
 
-# Step 2: Clone the model from Hugging Face
+# Step 2: Clone the model from Hugging Face (with progress bar)
 cd models
-git clone https://huggingface.co/Salesforce/blip-image-captioning-base
+git clone --progress https://huggingface.co/Salesforce/blip-image-captioning-base
 
 # That's it!
 ```
@@ -48,11 +48,11 @@ You can download any Hugging Face model the same way:
 
 ```bash
 # General format:
-git clone https://huggingface.co/<org-name>/<model-name>
+git clone --progress https://huggingface.co/<org-name>/<model-name>
 
 # Examples:
-git clone https://huggingface.co/Salesforce/blip-image-captioning-large
-git clone https://huggingface.co/nlpconnect/vit-gpt2-image-captioning
+git clone --progress https://huggingface.co/Salesforce/blip-image-captioning-large
+git clone --progress https://huggingface.co/nlpconnect/vit-gpt2-image-captioning
 ```
 
 ## Sharing the Model
@@ -65,7 +65,7 @@ If you want to share this project with other students:
 echo "models/" >> .gitignore
 
 # Students will need to run:
-git clone https://huggingface.co/Salesforce/blip-image-captioning-base models/blip-image-captioning-base
+git clone --progress https://huggingface.co/Salesforce/blip-image-captioning-base models/blip-image-captioning-base
 ```
 
 ### Option 2: With the Model (Larger, but easier)

@@ -37,8 +37,8 @@ git lfs install
 # Navigate to this directory
 cd models
 
-# Clone the BLIP model from Hugging Face Hub
-git clone https://huggingface.co/Salesforce/blip-image-captioning-base
+# Clone the BLIP model from Hugging Face Hub (with progress bar for ~1.8GB download)
+git clone --progress https://huggingface.co/Salesforce/blip-image-captioning-base
 
 # Return to project root
 cd ..
@@ -113,10 +113,10 @@ You can download other models from Hugging Face the same way:
 
 ```bash
 # Example: Larger BLIP variant (more accurate but slower)
-git clone https://huggingface.co/Salesforce/blip-image-captioning-large
+git clone --progress https://huggingface.co/Salesforce/blip-image-captioning-large
 
 # Example: Different model (ViT-GPT2)
-git clone https://huggingface.co/nlpconnect/vit-gpt2-image-captioning
+git clone --progress https://huggingface.co/nlpconnect/vit-gpt2-image-captioning
 ```
 
 Remember to update `app.py` to point to the new model path if you use a different model!

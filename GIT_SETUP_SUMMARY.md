@@ -40,7 +40,7 @@ git lfs install
 
 # 2. Clone the model
 cd models
-git clone https://huggingface.co/Salesforce/blip-image-captioning-base
+git clone --progress https://huggingface.co/Salesforce/blip-image-captioning-base
 cd ..
 
 # 3. Verify

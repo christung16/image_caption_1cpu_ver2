@@ -25,10 +25,10 @@ cd image_caption_1cpu_ver2
 ### Step 3: Download the AI Model (REQUIRED!)
 ```bash
 cd models
-git clone https://huggingface.co/Salesforce/blip-image-captioning-base
+git clone --progress https://huggingface.co/Salesforce/blip-image-captioning-base
 cd ..
 ```
-⏱️ This downloads ~1.8GB and may take 2-10 minutes.
+⏱️ This downloads ~1.8GB and may take 2-10 minutes. The `--progress` flag shows download progress.
 
 ### Step 4: Set Up Python Environment
 ```bash

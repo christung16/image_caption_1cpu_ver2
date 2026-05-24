@@ -70,8 +70,8 @@ git lfs install
 # Navigate to the models directory
 cd models
 
-# Clone the BLIP model from Hugging Face
-git clone https://huggingface.co/Salesforce/blip-image-captioning-base
+# Clone the BLIP model from Hugging Face (with progress bar)
+git clone --progress https://huggingface.co/Salesforce/blip-image-captioning-base
 
 # Return to project root
 cd ..
@@ -259,7 +259,7 @@ image_caption_1cpu_ver2/
 **Solution**: You need to download the BLIP model first!
 ```bash
 cd models
-git clone https://huggingface.co/Salesforce/blip-image-captioning-base
+git clone --progress https://huggingface.co/Salesforce/blip-image-captioning-base
 cd ..
 ```
 
@@ -284,7 +284,7 @@ sudo apt-get install git-lfs
 git lfs install
 cd models
 rm -rf blip-image-captioning-base  # Remove incomplete download
-git clone https://huggingface.co/Salesforce/blip-image-captioning-base
+git clone --progress https://huggingface.co/Salesforce/blip-image-captioning-base
 ```
 
 ### Issue 3: "Module not found" Error
