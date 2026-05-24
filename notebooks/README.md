@@ -76,30 +76,34 @@ This directory contains interactive Jupyter notebooks designed for teaching AI a
 
 ### Running the Notebooks
 
-#### Option 1: Jupyter Notebook (Classic)
-```bash
-# From project root
-jupyter notebook
+**⚠️ Important**: The notebooks include a setup cell that automatically adds the project root to the Python path. This allows the notebooks to import the `modules` package correctly.
 
-# Or directly open a notebook
+#### Option 1: Jupyter Notebook (Classic) - **Recommended**
+```bash
+# MUST run from project root directory
+cd /path/to/image_caption_1cpu_ver2
 jupyter notebook notebooks/student_notebook.ipynb
 ```
 
-#### Option 2: JupyterLab (Recommended)
+#### Option 2: JupyterLab - **Recommended**
 ```bash
-# From project root
+# MUST run from project root directory
+cd /path/to/image_caption_1cpu_ver2
 jupyter lab
-
-# Or navigate to notebooks/ directory
-cd notebooks
-jupyter lab
+# Then navigate to notebooks/ in the JupyterLab interface
 ```
 
 #### Option 3: VS Code
 1. Install the Jupyter extension in VS Code
-2. Open the notebook file
-3. Select Python kernel (your .venv environment)
-4. Run cells
+2. Open the project root folder in VS Code
+3. Open the notebook file
+4. Select Python kernel (your .venv environment)
+5. Run cells from top to bottom
+
+**📍 Working Directory**: 
+- The notebooks expect to be run with the **project root** as the working directory
+- The first code cell sets up the Python path automatically
+- Always run: `jupyter notebook` or `jupyter lab` from the project root
 
 ---
 
@@ -115,12 +119,14 @@ jupyter lab
 6. **Experiment** with different parameters and images
 
 **Tips**:
+- **IMPORTANT**: Run the first setup cell before any other cells!
 - Execute cells in order (top to bottom)
 - Read all comments and documentation
 - Try breaking the code to understand error messages
 - Use `Shift+Enter` to run cells
 - Use `Tab` for autocomplete
 - Use `Shift+Tab` to see function documentation
+- If you get "ModuleNotFoundError", restart the kernel and run the setup cell first
 
 ### For Teachers:
 
@@ -179,11 +185,27 @@ jupyter lab
 
 ## 🔧 Troubleshooting
 
-### Issue 1: "Module not found" error
-**Solution**: Make sure you're running Jupyter from the project root directory, or adjust the Python path:
+### Issue 1: "ModuleNotFoundError: No module named 'modules'"
+
+**This is the most common issue!**
+
+**Solution 1** (Recommended): Run Jupyter from the project root
+```bash
+cd /path/to/image_caption_1cpu_ver2
+jupyter notebook notebooks/student_notebook.ipynb
+```
+
+**Solution 2**: Make sure the first setup cell runs successfully
+- The first code cell in both notebooks adds the project root to Python path
+- **You must run this cell first** before any imports
+- If you get an error, restart the kernel and run cells in order
+
+**Solution 3**: Manually add the path (if above doesn't work)
 ```python
 import sys
-sys.path.append('..')  # Add parent directory to path
+import os
+# Add parent directory to path
+sys.path.insert(0, os.path.dirname(os.getcwd()))
 ```
 
 ### Issue 2: "Model not found" error
@@ -206,6 +228,14 @@ sys.path.append('..')  # Add parent directory to path
 - Check your internet connection
 - Try a different image URL
 - Some URLs may block automated requests
+
+### Issue 6: Jupyter not found
+**Solution**: Install Jupyter
+```bash
+pip install jupyter matplotlib
+# or
+pip install -r requirements.txt
+```
 
 ---
 
