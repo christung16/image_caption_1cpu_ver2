@@ -74,36 +74,62 @@ This directory contains interactive Jupyter notebooks designed for teaching AI a
    pip install -r requirements.txt
    ```
 
+4. **Register the virtual environment as a Jupyter kernel** (FIRST TIME ONLY):
+   ```bash
+   # Activate your virtual environment first
+   source .venv/bin/activate
+   
+   # Register the kernel
+   python -m ipykernel install --user --name=image_caption_venv --display-name="Python (image_caption_venv)"
+   ```
+   
+   You should see: `Installed kernelspec image_caption_venv in ...`
+
 ### Running the Notebooks
 
-**⚠️ Important**: The notebooks include a setup cell that automatically adds the project root to the Python path. This allows the notebooks to import the `modules` package correctly.
+**⚠️ Important**: 
+1. The notebooks include a setup cell that automatically adds the project root to the Python path
+2. **You MUST select the correct Python kernel**: `Python (image_caption_venv)`
+3. If matplotlib or other packages are missing, you're using the wrong kernel!
 
 #### Option 1: Jupyter Notebook (Classic) - **Recommended**
 ```bash
 # MUST run from project root directory
 cd /path/to/image_caption_1cpu_ver2
+source .venv/bin/activate  # Activate virtual environment
 jupyter notebook notebooks/student_notebook.ipynb
 ```
+
+**Then in Jupyter:**
+1. Menu: `Kernel` → `Change Kernel` → `Python (image_caption_venv)` ⚠️
+2. Run cells from top to bottom
 
 #### Option 2: JupyterLab - **Recommended**
 ```bash
 # MUST run from project root directory
 cd /path/to/image_caption_1cpu_ver2
+source .venv/bin/activate  # Activate virtual environment
 jupyter lab
 # Then navigate to notebooks/ in the JupyterLab interface
 ```
+
+**Then in JupyterLab:**
+1. Click the kernel name in the top-right corner
+2. Select `Python (image_caption_venv)` ⚠️
+3. Run cells from top to bottom
 
 #### Option 3: VS Code
 1. Install the Jupyter extension in VS Code
 2. Open the project root folder in VS Code
 3. Open the notebook file
-4. Select Python kernel (your .venv environment)
+4. **Click "Select Kernel" in top-right** → Choose `Python (image_caption_venv)` ⚠️
 5. Run cells from top to bottom
 
-**📍 Working Directory**: 
-- The notebooks expect to be run with the **project root** as the working directory
+**📍 Critical Requirements**: 
+- Always run Jupyter from the **project root** directory
+- Always select the **correct kernel**: `Python (image_caption_venv)`
 - The first code cell sets up the Python path automatically
-- Always run: `jupyter notebook` or `jupyter lab` from the project root
+- If you see "No module named 'matplotlib'" → wrong kernel!
 
 ---
 
@@ -119,6 +145,7 @@ jupyter lab
 6. **Experiment** with different parameters and images
 
 **Tips**:
+- **CRITICAL**: Select `Python (image_caption_venv)` kernel before running cells!
 - **IMPORTANT**: Run the first setup cell before any other cells!
 - Execute cells in order (top to bottom)
 - Read all comments and documentation
@@ -126,7 +153,8 @@ jupyter lab
 - Use `Shift+Enter` to run cells
 - Use `Tab` for autocomplete
 - Use `Shift+Tab` to see function documentation
-- If you get "ModuleNotFoundError", restart the kernel and run the setup cell first
+- If you get "ModuleNotFoundError: No module named 'matplotlib'" → wrong kernel!
+- If you get "ModuleNotFoundError: No module named 'modules'" → run setup cell first!
 
 ### For Teachers:
 
@@ -208,28 +236,53 @@ import os
 sys.path.insert(0, os.path.dirname(os.getcwd()))
 ```
 
-### Issue 2: "Model not found" error
+### Issue 2: "ModuleNotFoundError: No module named 'matplotlib'" or "No module named 'PIL'"
+
+**This means you're using the WRONG Python kernel!**
+
+**Solution**: Switch to the correct kernel
+1. **Check current kernel**: Look at the top-right corner of your notebook
+   - If it says "Python 3" or anything other than "Python (image_caption_venv)", you need to switch!
+
+2. **Switch the kernel**:
+   - **Jupyter Notebook**: Menu → `Kernel` → `Change Kernel` → `Python (image_caption_venv)`
+   - **JupyterLab**: Click the kernel name in top-right → Select `Python (image_caption_venv)`
+   - **VS Code**: Click "Select Kernel" button → Choose `Python (image_caption_venv)`
+
+3. **Restart the kernel**: Menu → `Kernel` → `Restart Kernel`
+
+4. **Run all cells again** from the top
+
+**If you don't see `Python (image_caption_venv)` in the kernel list:**
+```bash
+cd /path/to/image_caption_1cpu_ver2
+source .venv/bin/activate
+python -m ipykernel install --user --name=image_caption_venv --display-name="Python (image_caption_venv)"
+```
+Then restart Jupyter and you'll see the kernel in the list.
+
+### Issue 3: "Model not found" error
 **Solution**: Download the BLIP model first (see Prerequisites above)
 
-### Issue 3: Plots not showing
+### Issue 4: Plots not showing
 **Solution**: Add this at the beginning of your notebook:
 ```python
 %matplotlib inline
 ```
 
-### Issue 4: Kernel crashes
+### Issue 5: Kernel crashes
 **Solution**: 
 - Restart the kernel: `Kernel > Restart`
 - Close other applications to free up RAM
 - The BLIP model needs ~800MB-1GB RAM
 
-### Issue 5: Images not loading from URL
+### Issue 6: Images not loading from URL
 **Solution**:
 - Check your internet connection
 - Try a different image URL
 - Some URLs may block automated requests
 
-### Issue 6: Jupyter not found
+### Issue 7: Jupyter not found
 **Solution**: Install Jupyter
 ```bash
 pip install jupyter matplotlib

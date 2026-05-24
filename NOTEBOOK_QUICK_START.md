@@ -15,7 +15,15 @@ source .venv/bin/activate  # macOS/Linux
 .venv\Scripts\activate     # Windows
 ```
 
-### Step 3: Start Jupyter Notebook
+### Step 3: Register the Python kernel (FIRST TIME ONLY)
+```bash
+# This registers your virtual environment as a Jupyter kernel
+python -m ipykernel install --user --name=image_caption_venv --display-name="Python (image_caption_venv)"
+```
+
+You should see: `Installed kernelspec image_caption_venv in ...`
+
+### Step 4: Start Jupyter Notebook
 ```bash
 # Option A: Classic Notebook (Recommended for beginners)
 jupyter notebook notebooks/student_notebook.ipynb
@@ -24,6 +32,22 @@ jupyter notebook notebooks/student_notebook.ipynb
 jupyter lab
 # Then navigate to notebooks/ folder in the interface
 ```
+
+### Step 5: Select the Correct Kernel ⚠️ CRITICAL!
+**Before running ANY cells, select the correct Python kernel:**
+
+**In Jupyter Notebook (Classic):**
+1. Menu: `Kernel` → `Change Kernel` → `Python (image_caption_venv)`
+
+**In JupyterLab:**
+1. Click the kernel name in the top-right corner
+2. Select `Python (image_caption_venv)` from the dropdown
+
+**In VS Code:**
+1. Click "Select Kernel" in the top-right corner
+2. Choose `Python (image_caption_venv)`
+
+**How to verify:** Look at the kernel name in the top-right. It should say `Python (image_caption_venv)`, NOT `Python 3` or anything else.
 
 ---
 
@@ -52,6 +76,26 @@ jupyter lab
 2. Run it (Shift+Enter)
 3. You should see: `✓ Project root added to path: /path/to/project`
 4. Now run the import cell
+
+### Problem: `ModuleNotFoundError: No module named 'matplotlib'`
+
+**Solution**: You're using the wrong Python kernel!
+1. **Check current kernel**: Look at top-right corner of Jupyter
+2. **If it says "Python 3"**: You need to switch to `Python (image_caption_venv)`
+3. **Switch kernel**: 
+   - Jupyter Notebook: `Kernel` → `Change Kernel` → `Python (image_caption_venv)`
+   - JupyterLab: Click kernel name → Select `Python (image_caption_venv)`
+   - VS Code: Click "Select Kernel" → Choose `Python (image_caption_venv)`
+4. **Restart kernel**: `Kernel` → `Restart Kernel`
+5. **Run cells again** from the top
+
+**If you don't see `Python (image_caption_venv)` in the list:**
+```bash
+cd /path/to/image_caption_1cpu_ver2
+source .venv/bin/activate
+python -m ipykernel install --user --name=image_caption_venv --display-name="Python (image_caption_venv)"
+```
+Then restart Jupyter and select the kernel.
 
 ### Problem: Setup cell doesn't help
 
@@ -156,10 +200,15 @@ Check the detailed troubleshooting guide in:
 
 - [ ] BLIP model downloaded to `models/blip-image-captioning-base/`
 - [ ] All requirements installed (`pip install -r requirements.txt`)
-- [ ] Virtual environment activated (optional but recommended)
+- [ ] Virtual environment activated (REQUIRED)
 - [ ] Currently in project root directory (use `pwd` to check)
 - [ ] Jupyter installed (`jupyter --version` to check)
+- [ ] **Jupyter kernel registered** (`python -m ipykernel install --user --name=image_caption_venv --display-name="Python (image_caption_venv)"`)
+- [ ] **Correct kernel selected** in Jupyter (should see `Python (image_caption_venv)`)
 
-**Ready?** Run: `jupyter notebook notebooks/student_notebook.ipynb`
+**Ready?** 
+1. Run: `jupyter notebook notebooks/student_notebook.ipynb`
+2. **Select kernel**: `Kernel` → `Change Kernel` → `Python (image_caption_venv)`
+3. Run the first setup cell!
 
 Happy Learning! 🚀
