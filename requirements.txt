@@ -19,3 +19,7 @@ requests>=2.31.0
 
 # Additional Utilities
 numpy>=1.24.0
+
+# Jupyter Notebooks (for educational notebooks)
+jupyter>=1.0.0
+matplotlib>=3.7.0

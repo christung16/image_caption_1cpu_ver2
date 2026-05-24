@@ -17,6 +17,10 @@ Perfect for junior-level students learning Python and AI!
 
 - **Educational**: Well-commented code explaining each step for learning purposes
 
+- **Interactive Jupyter Notebooks**: Hands-on learning with exercises for students and teachers
+
+- **Modular Code Structure**: Organized into reusable modules for easy understanding
+
 - **Optimized for Low Resources**: Designed to run on 1GB RAM, 1 CPU servers
 
 ## Technologies Used
@@ -184,6 +188,17 @@ image_caption_1cpu_ver2/
 ├── requirements.txt        # Python dependencies
 ├── README.md              # This file
 │
+├── modules/               # Modular code components (NEW!)
+│   ├── __init__.py        # Package initialization
+│   ├── model_loader.py    # BLIP model loading
+│   ├── image_processor.py # Image loading and processing
+│   └── caption_generator.py # Caption generation logic
+│
+├── notebooks/             # Jupyter notebooks for teaching (NEW!)
+│   ├── README.md          # Notebook documentation
+│   ├── student_notebook.ipynb    # Student exercises
+│   └── teacher_notebook.ipynb    # Solutions and teaching guide
+│
 ├── templates/
 │   └── index.html         # HTML template (Frontend)
 │
@@ -227,26 +242,63 @@ image_caption_1cpu_ver2/
 
 ## Code Learning Guide
 
+### 🎓 Interactive Learning with Jupyter Notebooks
+
+The project includes interactive Jupyter notebooks perfect for teaching and learning!
+
+**Student Notebook** (`notebooks/student_notebook.ipynb`):
+- Step-by-step walkthrough of the modular code
+- 5 hands-on exercises with increasing difficulty
+- Visual examples and explanations
+- Perfect for classroom or self-study
+
+**Teacher Notebook** (`notebooks/teacher_notebook.ipynb`):
+- Complete solutions to all exercises
+- Teaching tips and discussion points
+- Alternative approaches and extensions
+- Assessment ideas
+
+**Getting Started with Notebooks**:
+```bash
+# Install Jupyter (if not already installed)
+pip install jupyter matplotlib
+
+# Launch Jupyter
+jupyter notebook notebooks/student_notebook.ipynb
+
+# Or use JupyterLab
+jupyter lab
+```
+
+See [notebooks/README.md](notebooks/README.md) for detailed instructions.
+
+---
+
 ### Key Python Concepts Demonstrated:
 
-1. **Web Development with Flask**
+1. **Modular Code Organization**
+   - Separating concerns into modules
+   - Reusable functions
+   - Import statements
+
+2. **Web Development with Flask**
    - Routes (`@app.route`)
    - Request handling
    - JSON responses
    - File uploads
 
-2. **AI/ML Integration**
+3. **AI/ML Integration**
    - Loading pre-trained models
    - Image preprocessing
    - Model inference
    - Result processing
 
-3. **Image Processing**
+4. **Image Processing**
    - Loading images from URLs
    - Loading images from files
    - Image format conversion
 
-4. **Error Handling**
+5. **Error Handling**
    - Try/except blocks
    - Validation
    - User-friendly error messages
