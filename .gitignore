@@ -50,8 +50,9 @@ Thumbs.db
 .cache/
 
 # AI Models (large files - download separately)
-models/
+models/*
 !models/.gitkeep
+!models/README.md
 
 # Virtual environment
 .venv/
